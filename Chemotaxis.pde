@@ -1,30 +1,68 @@
- Bacteria [] dots;
+Cell [] dots;
+Bacteria yoyo;
+int BacteriaX,BacteriaY,BacteriaP,BacteriaZ,CellX,CellY;
+
+import java.awt.MouseInfo;  
  void setup()   
  {     
  	size(800,800);
   background(0);
-  dots = new Bacteria[80];
+  dots = new Cell[80];
   for(int i = 0; i < dots.length ; i++){
-    dots[i] = new Bacteria();
+    dots[i] = new Cell();
   }
  }   
- void draw(){    
+ void draw(){  
+  
  	for(int i = 0; i < dots.length ; i++){
-    dots[i].move();
     dots[i].show();
+    dots[i].walk();
+    yoyo.show();
+    yoyo.getBig();
   } 
  }  
  class Bacteria{     
- 	int x, y;
+ 	
+  BacteriaP=10;
+  BacteriaZ=10;
   Bacteria(){
-    x = (int)(Math.random()*800);
-    y = (int)(Math.random()*800);
+    BacteriaY= 400;
+    BacteriaX= 400;
   }
   void move(){
-    x++;
+    BacteriaY = mouseY;
+    BacteriaX = mouseX;          
   }
   void show(){
-    fill(255);
-    ellipse(x,y,5,5);
+    fill(255,255,102);
+    ellipse(BacteriaX,BacteriaY,BacteriaP,BacteriaZ);
   }
+  void getBig(){
+    for(int i = 0; i < dots.length ; i++){
+      if(BacteriaX == Cell[i].X){
+        if(BacteriaY == Cell[i].Y){
+          fill(0);
+          ellipse(Cell[i].X,Cell[i].Y,10,10);
+          p+=10;
+          z+=10;
+        }
+      }
+    }
+  }
+ }
+ 
+ class Cell{
+   int x, y;
+   Cell(){
+     x = (int)(Math.random()*800);
+     y = (int)(Math.random()*800);
+   }
+   void walk(){
+     x += (int)(Math.random()*5)-2;
+     y += (int)(Math.random()*5)-2;
+   }
+   void show(){
+     fill(255);
+     ellipse(x,y,5,5);
+   }
  }
